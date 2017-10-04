@@ -1,0 +1,54 @@
+version: '3'
+services:
+#   flask1:
+ #    build: .
+  #   ports:
+   #       - "5008:5001"
+   flask2:
+     build: .
+     ports:
+          - "5009:5001"
+     command: python /app/program.py
+     volumes:
+        - .:/app
+   api: 
+      build: ./api
+      ports:
+       - "5010:5001"
+      command: python /app/api.py
+      volumes:
+        - ./api:/app
+      links:
+         - db
+      env_file:
+         - secrets/cms.env
+   nyanza: 
+      build: ./nyanza
+      ports:
+       - "5011:5001"
+      command: python /app/nyanza.py
+      volumes:
+        - ./nyanza:/app
+   billing: 
+      build: ./billing
+      ports:
+       - "5050:5001"
+      command: python /app/billing.py
+      volumes:
+        - ./billing:/app
+   website:
+    build: ./website
+    ports: 
+      - "8080:5001"
+    command: python website.py
+    volumes:
+      - ./website:/app
+    links:
+       - api
+   db:
+     image: mysql
+     environment:
+         - MYSQL_ROOT_PASSWORD=54321
+     volumes:
+         - ./mysql-data:/var/lib/mysql
+       
