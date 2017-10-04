@@ -1,3 +1,4 @@
+import requests
 from flask import Flask
 app = Flask(__name__)
 
@@ -13,9 +14,12 @@ def about_us():
 def taha():
   return "taha:"
 
-@app.route('/poc/<customerid>')
+@app.route('/customer/<customerid>')
 def show_user_profile(customerid):
- return 'POC: %s' % customerid
+ r= requests.get('http://api:5001/customer/%s'%customerid)
+ print r
+ data = r.json()
+ return 'POC: %s' % data['customerid']
 
 @app.route('/poc/<customerid>/<name>')
 def show_user_profiles(customerid,name):
