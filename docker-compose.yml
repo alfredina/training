@@ -21,7 +21,7 @@ services:
       links:
          - db
       env_file:
-         - secrets/cms.env
+         - .secrets/cms.env
    nyanza: 
       build: ./nyanza
       ports:
