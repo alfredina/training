@@ -45,6 +45,8 @@ services:
       - ./website:/app
     links:
        - api
+    environment:
+       - API_URL=http://api:5001
    db:
      image: mysql
      environment:

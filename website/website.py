@@ -1,5 +1,9 @@
 import requests 
 from flask import Flask, render_template, request
+import os
+
+API_URL = os.environ['API_URL']
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -16,7 +20,7 @@ def search():
  	return render_template("customer.html") 
  elif request.method == 'POST':
 	customerid = request.form['customerid']
- 	r= requests.get('http://api:5001/customer/%s'%customerid)
+ 	r= requests.get('%s/customer/%s'% (API_URL, customerid))
  	data = r.json()
  	return render_template("search_result.html", customer=data) 
 
