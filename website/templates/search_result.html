@@ -1,5 +1,16 @@
 <center><h1>Search Results</h1>
-{{ customer.customerid }}
+<table>
+<tr>
+	<td> Customer: </td> <td>{{ customer.name}}</td>
+</tr>
+<tr>
+	<td> POC: </td> <td>{{ customer.customerid }}</td>
+</tr>
+<tr>
+	<td> Current Balance: </td> <td>{{ customer.cbal}}</td>
+</tr>
+</table>
+<a href="/search"> Back</a>
 </center>
 
 

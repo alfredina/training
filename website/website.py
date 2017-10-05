@@ -15,7 +15,7 @@ def search():
  if request.method == 'GET':
  	return render_template("customer.html") 
  elif request.method == 'POST':
-	customerid = request.form.customerid
+	customerid = request.form['customerid']
  	r= requests.get('http://api:5001/customer/%s'%customerid)
  	data = r.json()
  	return render_template("search_result.html", customer=data) 
