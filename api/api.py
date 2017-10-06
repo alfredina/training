@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_httpauth import HTTPBasicAuth
 import pymysql.cursors
 import json
 import pymssql
@@ -6,12 +7,28 @@ from flask_jsonpify import jsonify
 from flask import request
 import os
 
+
 CMS_URL = os.environ['CMS_URL']
 CMS_USER = os.environ['CMS_USER']
 CMS_PASSWORD = os.environ['CMS_PASSWORD']
 CMS_DB = os.environ['CMS_DB']
 
 app = Flask(__name__)
+auth=HTTPBasicAuth()
+
+users={
+       "john":"hello",
+       "susan":"bye"
+}
+
+
+@auth.get_password
+def get_pw(username):
+    if username in users:
+        return users.get(username)
+    return None
+
+
 
 connection = pymssql.connect(CMS_URL, CMS_USER, CMS_PASSWORD, CMS_DB)
 @app.route("/")
@@ -32,6 +49,7 @@ def show_user_profile(customerid):
 
 @app.route('/customer', methods=['POST'])
 @app.route('/customer/<poc>', methods=['GET'])
+@auth.login_required
 def show_user_profiles(poc=None):
 	if request.method == 'GET':
 		try:

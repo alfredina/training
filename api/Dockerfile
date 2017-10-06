@@ -10,5 +10,6 @@ RUN apt-get install -y  iputils-ping
 RUN pip install pymssql
 RUN pip install flask-jsonpify
 RUN pip install simplejson
+RUN pip install Flask-HTTPAuth
 EXPOSE 5001
 
