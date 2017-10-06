@@ -20,7 +20,7 @@ def search():
  	return render_template("customer.html") 
  elif request.method == 'POST':
 	customerid = request.form['customerid']
- 	r= requests.get('%s/customer/%s'% (API_URL, customerid), auth=('john','hello'))
+ 	r= requests.get('%s/customer/%s'% (API_URL, customerid), auth=('john','hello1'))
  	data = r.json()
  	return render_template("search_result.html", customer=data) 
 
